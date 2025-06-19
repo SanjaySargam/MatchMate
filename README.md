@@ -1,5 +1,13 @@
 # MatchMate - Matrimonial Android App
 
+## Screen Recording
+
+
+https://github.com/user-attachments/assets/4f273274-e242-46e4-b461-1c11127e99cc
+
+
+
+
 ## 📱 Project Overview
 
 **MatchMate** is an Android app that simulates a Matrimonial App by displaying
@@ -42,7 +50,6 @@ A simple, transparent scoring system ranks matches based on:
 ### 📍 Location Match (40% weight)
 - Same city → 100 points  
 - Different city → 90-60 points  
-
 ---
 
 ## 🎓 Additional Fields
@@ -51,9 +58,6 @@ To improve matchmaking relevance, two key fields were added:
 
 - **Education**: A major factor in compatibility, especially in matrimonial contexts.
 - **Occupation**: Gives insights into lifestyle and social background.
-
-These values are generated from realistic options and saved locally.
-
 ---
 
 ## 🛠 Libraries & Tools
