@@ -33,14 +33,14 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
             val userCount = repository.getUserCount()
             if (userCount == 0) {
-                fetchUsersWithRetry()
+                fetchUsers()
             } else {
                 _loading.value = false
             }
         }
     }
 
-    private suspend fun fetchUsersWithRetry(maxRetries: Int = 3) {
+    private suspend fun fetchUsers(maxRetries: Int = 3) {
         var attempts = 0
 
         while (attempts < maxRetries) {
@@ -79,7 +79,7 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
     fun refreshData() {
         viewModelScope.launch {
             _loading.value = true
-            fetchUsersWithRetry()
+            fetchUsers()
         }
     }
 
