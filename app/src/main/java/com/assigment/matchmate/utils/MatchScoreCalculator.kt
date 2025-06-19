@@ -2,63 +2,83 @@ package com.assigment.matchmate.utils
 
 object MatchScoreCalculator {
 
-    private const val REFERENCE_AGE = 26 // Ideal age
-    private const val REFERENCE_CITY = "Mumbai" // My hometown
+    private const val MY_AGE = 28
+    private const val HOME_CITY = "Helsinki"
 
     fun calculateScore(age: Int, city: String): Int {
-        val ageScore = calculateAgeScore(age)
-        val cityScore = calculateCityScore(city)
+        val agePoints = getAgeCompatibility(age)
+        val locationPoints = getLocationScore(city)
 
-        // we will be considering 60% of age and 40% of city
-        return ((ageScore * 0.6) + (cityScore * 0.4)).toInt()
+        return ((agePoints * 0.6) + (locationPoints * 0.4)).toInt()
     }
 
-    private fun calculateAgeScore(age: Int): Int {
-        val ageDifference = kotlin.math.abs(age - REFERENCE_AGE)
-        return when {
-            ageDifference <= 2 -> 100
-            ageDifference <= 5 -> 85
-            ageDifference <= 8 -> 70
-            ageDifference <= 12 -> 55
-            else -> 40
-        }
+    private fun getAgeCompatibility(theirAge: Int): Int {
+        val diff = kotlin.math.abs(theirAge - MY_AGE)
+
+        if (diff <= 2) return 100
+        if (diff <= 5) return 85
+        if (diff <= 8) return 70
+        if (diff <= 12) return 55
+        return 40
     }
 
-    private fun calculateCityScore(city: String): Int {
-        return when {
-            city.equals(REFERENCE_CITY, ignoreCase = true) -> 100
-            isNearbyCity(city) -> 85
-            isSameState(city) -> 75
-            isMetroCity(city) -> 65
-            else -> 50
-        }
+    private fun getLocationScore(city: String): Int {
+        val cityLower = city.lowercase()
+
+        if (cityLower == "helsinki") return 100
+
+        // close to home
+        if (isHelsinkiArea(cityLower)) return 90
+
+        // decent sized cities
+        if (isBigCity(cityLower)) return 80
+
+        // smaller places but still ok
+        if (isDecentPlace(cityLower)) return 70
+
+        // same region at least
+        if (isUusimaa(cityLower)) return 60
+
+        return 50
     }
 
-    private fun isNearbyCity(city: String): Boolean {
-        val nearbyCities = listOf(
-            "Pune", "Nashik", "Aurangabad", "Thane", "Navi Mumbai",
-            "Panvel", "Kalyan", "Vasai", "Virar", "Bhiwandi",
-            "Ulhasnagar", "Ambernath", "Badlapur", "Karjat"
+    private fun isHelsinkiArea(city: String): Boolean {
+        val nearby = arrayOf(
+            "espoo", "vantaa", "kauniainen", "kerava", "kirkkonummi",
+            "järvenpää", "tuusula", "sipoo", "nurmijärvi", "hyvinkää",
+            "porvoo", "lohja", "karkkila", "vihti"
         )
-        return nearbyCities.any { it.equals(city, ignoreCase = true) }
+        return city in nearby
     }
 
-    private fun isSameState(city: String): Boolean {
-        val maharashtraCities = listOf(
-            "Nagpur", "Solapur", "Ahmednagar", "Kolhapur", "Sangli",
-            "Satara", "Jalgaon", "Akola", "Latur", "Dhule",
-            "Nanded", "Parbhani", "Jalna", "Beed", "Osmanabad"
+    private fun isBigCity(city: String): Boolean {
+        val cities = arrayOf(
+            "tampere", "turku", "oulu", "jyväskylä", "lahti",
+            "kuopio", "pori", "joensuu", "lappeenranta", "hämeenlinna",
+            "vaasa", "seinäjoki", "rovaniemi", "mikkeli", "kotka",
+            "salo", "kouvola", "rauma", "tornio", "savonlinna"
         )
-        return maharashtraCities.any { it.equals(city, ignoreCase = true) }
+        return city in cities
     }
 
-    private fun isMetroCity(city: String): Boolean {
-        val metroCities = listOf(
-            "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata",
-            "Ahmedabad", "Surat", "Jaipur", "Lucknow", "Kanpur",
-            "Indore", "Bhopal", "Patna", "Vadodara", "Coimbatore",
-            "Ludhiana", "Kochi", "Visakhapatnam", "Agra", "Varanasi"
+    private fun isDecentPlace(city: String): Boolean {
+        // bunch of smaller cities that are still fine
+        val places = arrayOf(
+            "kajaani", "iisalmi", "ylivieska", "raahe", "kokkola",
+            "pietarsaari", "kemi", "imatra", "riihimäki", "forssa",
+            "valkeakoski", "nokia", "ylöjärvi", "kangasala", "lempäälä",
+            "naantali", "kaarina", "lieto", "mynämäki", "siilinjärvi",
+            "töysä", "pälkäne", "jomala", "tohmajärvi", "halsua",
+            "posio", "taivalkoski", "lumparland"
         )
-        return metroCities.any { it.equals(city, ignoreCase = true) }
+        return city in places
+    }
+
+    private fun isUusimaa(city: String): Boolean {
+        val uusimaaPlaces = arrayOf(
+            "hanko", "inkoo", "raasepori", "loviisa", "askola",
+            "lapinjärvi", "myrskylä", "pukkila", "mäntsälä", "pornainen"
+        )
+        return city in uusimaaPlaces
     }
 }
