@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:textColor="@color/text_primary"
+                    android:textColor="?attr/colorOnSecondary"
                     android:textSize="14sp"
                     tools:text="Bachelor's Degree" />
 
