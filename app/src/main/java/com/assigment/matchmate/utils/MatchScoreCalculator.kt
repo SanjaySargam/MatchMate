@@ -3,7 +3,6 @@ package com.assigment.matchmate.utils
 object MatchScoreCalculator {
 
     private const val MY_AGE = 28
-    private const val HOME_CITY = "Helsinki"
 
     fun calculateScore(age: Int, city: String): Int {
         val agePoints = getAgeCompatibility(age)
