@@ -63,13 +63,11 @@ To improve matchmaking relevance, two key fields were added:
 ## 🛠 Libraries & Tools
 
 - **Retrofit + Gson**: REST API and JSON parsing  
-- **Room**: Local database with SQLite backend  
+- **Room**: Local database  
 - **Glide**: Fast image loading and caching  
 - **Material Design Components**: For a modern UI look and feel  
-- **Kotlin Coroutines**: For async/background processing  
 - **LiveData**: Reactive UI updates  
 - **RecyclerView**: Smooth, efficient list rendering  
-
 ---
 
 ## 🌐 Offline Strategy
